@@ -1,0 +1,41 @@
+<template bindable="router">
+  <require from="sweetalert/dist/sweetalert.css"></require>
+  <div>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+
+          <!-- Collapsed Hamburger -->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+            <span class="sr-only">Toggle Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand hidden-xs" href="/">
+            Participation
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+          <!-- Right Side Of Navbar -->
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a route-href="route: dashboard" if.bind="config.isAuthenticated()">
+                Dashboard ${config.isAuthenticated()}
+              </a>
+
+              <a href="#" if.bind="! config.isAuthenticated()">
+                Registreer ${config.isAuthenticated()}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <router-view></router-view>
+
+  </div>
+</template>
