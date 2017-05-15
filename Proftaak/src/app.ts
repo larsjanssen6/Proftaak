@@ -16,7 +16,7 @@ export class App {
     configureRouter(config, router) {
         this.router = router;
 
-        config.addPipelineStep('authorize', AuthorizeStep);
+        //config.addPipelineStep('authorize', AuthorizeStep);
 
         config.title = 'Aurelia';
         config.map([
@@ -53,20 +53,20 @@ export class App {
     }
 }
 
-class AuthorizeStep {
-    run(routingContext, next) {
-        if (routingContext.nextInstructions.some(i => i.config.auth)) {
-            var isLoggedIn = AuthorizeStep.isLoggedIn();
-            if (!isLoggedIn) {
-                return next.cancel();
-            }
-        }
-        return next();
-    }
+//class AuthorizeStep {
+//    run(routingContext, next) {
+//        if (routingContext.nextInstructions.some(i => i.config.auth)) {
+//            var isLoggedIn = AuthorizeStep.isLoggedIn();
+//            if (!isLoggedIn) {
+//                return next.cancel();
+//            }
+//        }
+//        return next();
+//    }
 
-    static isLoggedIn(): boolean {
-        var auth_token = localStorage.getItem("auth_token");
-        return (typeof auth_token !== "undefined" && auth_token !== null);
-    }
-}
+//    static isLoggedIn(): boolean {
+//        var auth_token = localStorage.getItem("auth_token");
+//        return (typeof auth_token !== "undefined" && auth_token !== null);
+//    }
+//}
 
