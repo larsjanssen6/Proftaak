@@ -2,6 +2,7 @@
 import { autoinject } from "aurelia-framework"
 import { HttpClient, json } from "aurelia-fetch-client"
 import { AuthService } from "aurelia-authentication"
+import { Router } from 'aurelia-router'
 
 @autoinject
 export class FetchClientDemo {
@@ -9,7 +10,7 @@ export class FetchClientDemo {
     email = "";
     password = "";
 
-    constructor(private auth: AuthService, private http: HttpClient) {
+    constructor(private auth: AuthService, private http: HttpClient, private router: Router) {
     }
 
     login() {
@@ -24,6 +25,8 @@ export class FetchClientDemo {
                 showConfirmButton: false,
                 closeOnConfirm: true
             });
+
+            this.router.navigate("dashboard");
         })
             .catch(err => {
                 swal({

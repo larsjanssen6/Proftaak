@@ -1,14 +1,15 @@
 import { autoinject } from 'aurelia-framework';
-import { Router, RouterConfiguration } from 'aurelia-router'
+import { Router, RouterConfiguration, Next, Redirect, NavigationInstruction } from 'aurelia-router'
 import { HttpClient } from 'aurelia-fetch-client';
 import { FetchConfig } from 'aurelia-authentication';
 import { Container } from 'aurelia-dependency-injection';
+import { AuthService } from 'aurelia-authentication';
 
 @autoinject
 export class App {
     router: Router;
 
-    constructor(private http: HttpClient, private config: FetchConfig) {
+    constructor(private http: HttpClient, private config: FetchConfig, private authService: AuthService) {
         this.configHttp();
     }
 
@@ -16,12 +17,13 @@ export class App {
     configureRouter(config, router) {
         this.router = router;
 
-        //config.addPipelineStep('authorize', AuthorizeStep);
+        let step = new AuthorizeStep(this.authService);
+        config.addAuthorizeStep(step);
 
         config.title = 'Aurelia';
         config.map([
-            { route: ['/', 'dashboard'], name: 'dashboard', moduleId: 'components/dashboard/dashboard', auth: true },
-            { route: ['/', 'login'], name: 'login', moduleId: 'components/authentication/login' },
+            { route: ['/dashboard'], name: 'dashboard', moduleId: 'components/dashboard/dashboard', auth: true },
+            { route: ['/'], name: 'login', moduleId: 'components/authentication/login' },
         ]);
     }
 
@@ -53,20 +55,20 @@ export class App {
     }
 }
 
-//class AuthorizeStep {
-//    run(routingContext, next) {
-//        if (routingContext.nextInstructions.some(i => i.config.auth)) {
-//            var isLoggedIn = AuthorizeStep.isLoggedIn();
-//            if (!isLoggedIn) {
-//                return next.cancel();
-//            }
-//        }
-//        return next();
-//    }
+@autoinject
+class AuthorizeStep {
+    constructor(private authService: AuthService) { }
 
-//    static isLoggedIn(): boolean {
-//        var auth_token = localStorage.getItem("auth_token");
-//        return (typeof auth_token !== "undefined" && auth_token !== null);
-//    }
-//}
+    run(navigationInstruction: NavigationInstruction, next: Next): Promise<any> {
+        if (navigationInstruction.getAllInstructions().some(i => i.config.auth)) {
+            let isLoggedIn = this.authService.isAuthenticated();
+
+            if (!isLoggedIn) {
+                return next.cancel(new Redirect('login'));
+            }
+        }
+
+        return next();
+    }
+}
 
