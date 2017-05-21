@@ -1,0 +1,54 @@
+﻿/* start block */
+
+.block {
+  background: #fde428;
+  height: 100px;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  cursor: pointer;
+}
+
+.block:hover {
+  background: #002e5b;
+  color: white;
+}
+
+/* end block */
+
+
+/* start header */
+.header {
+  background: #002e5b;
+  height: 100px;
+  color: white;
+}
+
+/* end header */
+
+
+/* start shared */
+h1 {
+  font-weight: 300;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+.container__margin__top {
+  margin-top: 50px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* end shared*/
+
+/* start navbar */
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+/* end navbar */
