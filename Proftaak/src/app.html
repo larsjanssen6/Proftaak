@@ -14,7 +14,7 @@
           </button>
 
           <a class="navbar-brand hidden-xs" href="/">
-            Participation
+            ${title}
           </a>
         </div>
 
@@ -22,12 +22,44 @@
           <!-- Right Side Of Navbar -->
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <a route-href="route: dashboard" if.bind="config.isAuthenticated()">
-                Dashboard ${config.isAuthenticated()}
+              <a route-href="route: dashboard" show.bind="authenticated">
+                Home 
               </a>
+            <li/>
 
-              <a href="#" if.bind="! config.isAuthenticated()">
-                Registreer ${config.isAuthenticated()}
+            <li>
+              <a href="#" show.bind="authenticated">
+                Hulpvraag
+              </a>
+            </li>
+
+            <li>
+              <a route-href="route: dashboard" show.bind="authenticated">
+                Agenda
+              </a>
+            </li>
+
+            <li>
+              <a route-href="route: dashboard" show.bind="authenticated">
+                Personen
+              </a>
+            </li>
+
+            <li>
+              <a route-href="route: dashboard" show.bind="authenticated">
+                Account
+              </a>
+            </li>
+
+            <li>
+              <a href="#" click.delegate="logout()" show.bind="authenticated">
+                Uitloggen
+              </a>
+            </li>
+
+            <li>
+              <a href="#" if.bind="!authenticated">
+                Registreer 
               </a>
             </li>
           </ul>

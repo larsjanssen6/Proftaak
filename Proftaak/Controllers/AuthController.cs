@@ -58,13 +58,17 @@ namespace AureliaTest.Controllers
         string password = credentials.password;
 
         if (!userRepo.loginEmail(email,password)) throw new UnauthorizedAccessException();
+        UserModel user = userRepo.find(email);
+        string role = userRepo.determineRole(user);
 
-        return CreateAccessToken(email, new[] { "user" });
+        return CreateAccessToken(user.id.ToString(), user.name, new[] { role });
     }
 
    
 
-    private static AccessToken CreateAccessToken(string userId, string[] roles)
+    private static AccessToken CreateAccessToken(string userId, 
+                                                 string name,
+                                                 string[] roles)
     {
       var claims = new List<Claim>();
 
@@ -73,6 +77,7 @@ namespace AureliaTest.Controllers
         claims.Add(new Claim("roles", role));
       }
       claims.Add(new Claim("userid", userId));
+      claims.Add(new Claim("name", name));
 
       var signing = new SigningCredentials(new SymmetricSecurityKey(new byte[32]), SecurityAlgorithms.HmacSha256);
 

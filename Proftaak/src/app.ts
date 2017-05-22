@@ -4,13 +4,22 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { FetchConfig } from 'aurelia-authentication';
 import { Container } from 'aurelia-dependency-injection';
 import { AuthService } from 'aurelia-authentication';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import * as jwt_decode from 'jwt-decode';
 
 @autoinject
 export class App {
     router: Router;
+    authenticated: boolean;
+    title: string;
 
-    constructor(private http: HttpClient, private config: FetchConfig, private authService: AuthService) {
+    constructor(private http: HttpClient,
+                private config: FetchConfig,
+                private authService: AuthService,
+                private event: EventAggregator) {
         this.configHttp();
+        this.authenticated = this.authService.authenticated;
+        this.title = this.authService.authenticated ? "Welkom " + jwt_decode(this.authService.getAccessToken()).name : "PARTICIPATION";
     }
 
 
@@ -22,8 +31,17 @@ export class App {
 
         config.title = 'Aurelia';
         config.map([
-            { route: ['/dashboard'], name: 'dashboard', moduleId: 'components/dashboard/dashboard', auth: true },
-            { route: ['/'], name: 'login', moduleId: 'components/authentication/login' },
+            {
+                route: ['/dashboard'],
+                name: 'dashboard',
+                moduleId: 'components/dashboard/dashboard',
+                auth: true
+            },
+            {
+                route: ['/', 'login'],
+                name: 'login',
+                moduleId: 'components/authentication/login'
+            },
         ]);
     }
 
@@ -53,6 +71,30 @@ export class App {
 
         this.config.configure(this.http);
     }
+
+
+    attached() {
+        this.event.subscribe('signedIn', response => {
+            this.authenticated = response;
+            this.title = "Welkom " + jwt_decode(this.authService.getAccessToken()).name;
+        });
+    }
+
+    logout() {
+        return this.authService.logout()
+            .then(() => {
+                this.authenticated = this.authService.authenticated;
+                this.router.navigate("login");
+                this.title = "PARTICIPATION";
+
+                swal({
+                    title: "Bedankt voor uw bezoek",
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            });
+    }
 }
 
 @autoinject
@@ -71,4 +113,5 @@ class AuthorizeStep {
         return next();
     }
 }
+
 

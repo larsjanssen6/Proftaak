@@ -3,6 +3,7 @@ import { autoinject } from "aurelia-framework"
 import { HttpClient, json } from "aurelia-fetch-client"
 import { AuthService } from "aurelia-authentication"
 import { Router } from 'aurelia-router'
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 @autoinject
 export class FetchClientDemo {
@@ -10,7 +11,10 @@ export class FetchClientDemo {
     email = "";
     password = "";
 
-    constructor(private auth: AuthService, private http: HttpClient, private router: Router) {
+    constructor(private auth: AuthService,
+                private http: HttpClient,
+                private router: Router,
+                private event: EventAggregator,) {
     }
 
     login() {
@@ -18,12 +22,14 @@ export class FetchClientDemo {
             email: this.email,
             password: this.password
         }).then(response => {
+            this.event.publish('signedIn', true);
+
             swal({
                 title: "U bent succesvol ingelogd",
                 type: "success",
-                showCancelButton: true,
+                showCancelButton: false,
                 showConfirmButton: false,
-                closeOnConfirm: true
+                timer: 2000
             });
 
             this.router.navigate("dashboard");

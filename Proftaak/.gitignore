@@ -1,3 +1,7 @@
 node_modules
 .idea
+wwwroot/scripts/app-bundle.js
+wwwroot/scripts/app-bundle.js.map
+wwwroot/scripts/vendor-bundle.js
+Proftaak/wwwroot/css
 .DS_STORE
