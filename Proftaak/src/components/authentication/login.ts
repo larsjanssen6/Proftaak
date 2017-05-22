@@ -2,8 +2,8 @@
 import { autoinject } from "aurelia-framework"
 import { HttpClient, json } from "aurelia-fetch-client"
 import { AuthService } from "aurelia-authentication"
-import { Router } from 'aurelia-router'
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { Router } from 'aurelia-router'
 
 @autoinject
 export class FetchClientDemo {
@@ -14,7 +14,7 @@ export class FetchClientDemo {
     constructor(private auth: AuthService,
                 private http: HttpClient,
                 private router: Router,
-                private event: EventAggregator,) {
+                private event: EventAggregator) {
     }
 
     login() {

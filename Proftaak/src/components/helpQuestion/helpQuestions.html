@@ -1,0 +1,71 @@
+﻿<template>
+  <div class="header center">
+    <h1>Hulpvragen</h1>
+  </div>
+
+  <div class="container">
+    <a route-href="route: newHelpQuestion">
+        Maak hier uw nieuwe hulpvraag
+    </a>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th class="col-md-3 table__title">
+                    Naam
+                  </th>
+
+                  <th class="col-md-3 table__title">
+                    Email
+                  </th>
+
+                  <th class="col-md-3 table__title">
+                    Urgentie
+                  </th>
+
+                  <th class="col-md-3 table__title">
+                    Vraag
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr repeat.for="question of questions">
+                <td class="col-md-4">
+                  ${question.helpSeeker}
+                </td>
+
+                <td class="col-md-3">
+                  ${question.email}
+                </td>
+
+                <td class="col-md-3">
+                  <span class="label label-danger" if.bind="question.urgent == 0">Hoog</span>
+                  <span class="label label-warning" if.bind="question.urgent == 1">Gemiddeld</span>
+                  <span class="label label-info" if.bind="question.urgent == 2">Laag</span>
+                </td>
+
+                <td class="col-md-3">
+                  ${question.question.slice(0, 10)}....
+                </td>
+
+                <td>
+                  <i class="material-icons" click.delegate="destroy(question)">&#xE872;</i>
+
+                  <a>
+                    <i class="material-icons">&#xE254;</i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

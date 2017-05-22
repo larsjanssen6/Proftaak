@@ -1,6 +1,7 @@
 <template bindable="router">
   <require from="sweetalert/dist/sweetalert.css"></require>
-  <div>
+  <div id="app">
+    <div class="strip strip__top"></div>
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -28,7 +29,7 @@
             <li/>
 
             <li>
-              <a href="#" show.bind="authenticated">
+              <a route-href="route: helpQuestions" show.bind="authenticated">
                 Hulpvraag
               </a>
             </li>
@@ -68,6 +69,9 @@
     </nav>
 
     <router-view></router-view>
-
   </div>
+  <div id="footer">
+    <p>PARTICIPATION 2017</p>
+  </div>
+  <div class="strip strip__footer"></div>
 </template>

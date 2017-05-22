@@ -117,7 +117,7 @@ namespace Proftaak.Repositories.UserRepo
             switch (user.role)
             {
               case 1:
-                role_text = "Hulpbehoevende";
+                role_text = "Hulpbehoevende"; 
                 break;
               case 2:
                 role_text = "Vrijwilliger";

@@ -1,4 +1,15 @@
-﻿/* start block */
+﻿/* global */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #f5f8fa;
+}
+
+
+/* start block */
 
 .block {
   background: #fde428;
@@ -15,6 +26,43 @@
 
 /* end block */
 
+/* button */
+.btn-primary {
+  color: #fff;
+  background-color: #002e5b;
+  border-color: #002142;
+}
+
+  .btn-primary:hover {
+    background-color: #fde428;
+    color: white;
+    border: #fde428
+  }
+
+/* end button*/
+
+/* table */
+
+.table__title {
+  color: #002e5b;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+tr {
+  cursor: pointer;
+}
+
+td {
+  color: black;
+  border-right: 1px solid #eaeaea;
+}
+
+/* end table */
 
 /* start header */
 .header {
@@ -53,3 +101,63 @@ h1 {
 }
 
 /* end navbar */
+
+/* strips */
+.strip {
+  height: 10px;
+}
+
+.strip__top {
+  background: #fde428;
+}
+
+.strip__footer {
+  background: #002e5b;
+}
+
+/* end strips */
+
+/* footer */
+
+#app {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+#footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  background-color: #fde428;
+}
+
+#footer p {
+  color: black;
+}
+
+/* end footer */
+
+/* panel */
+
+.panel-default {
+  border-color: #e6e6e6;
+}
+
+.panel-heading {
+  color: #333333;
+  background-color: #fff;
+  border-color: #e6e6e6;
+}
+
+.panel-primary > .panel-heading {
+  background-color: #002e5b;
+}
+
+.panel-primary {
+  border-color: #002e5b;
+}
+
+/* end panel */
