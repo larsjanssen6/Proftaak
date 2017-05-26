@@ -35,6 +35,13 @@ namespace Proftaak.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Hulpbehoevende, Vrijwilliger, Hulpverlener, Beheerder")]
+        public JsonResult show([FromBody] int id)
+        {
+          return Json(helpQuestionRepo.find(id));
+        }
+
+        [HttpPost]
         [Authorize(Roles = "Hulpverlener, Beheerder")]
         public IActionResult destroy([FromBody] HelpQuestionModel question)
         {

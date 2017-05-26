@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="header center">
-    <h1>Nieuwe hulpvraag</h1>
+    <h1>Bewerk hulpvraag</h1>
   </div>
 
   <div class="container">
@@ -8,11 +8,11 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <span>Nieuwe hulpvraag</span>
+            <span>Bewerk uw hulpvraag</span>
           </div>
 
           <div class="panel-body">
-            <form class="form-horizontal" role="form" method="POST" submit.delegate="store()">
+            <form class="form-horizontal" role="form" method="POST" submit.delegate="update()">
 
               <div class="form-group">
                 <label for="question" class="col-md-4 control-label">Uw vraag</label>
@@ -21,33 +21,29 @@
                   <textarea value.bind="question.question" id="question" type="text" class="form-control" name="question" required autofocus></textarea>
                 </div>
               </div>
-
               <div class="form-group">
                 <label for="urgent" class="col-md-4 control-label">Urgentie</label>
-
                 <div class="col-md-6">
                   <select class="form-control" value.bind="question.urgent" required>
                     <option disabled value="">Selecteer urgentie</option>
 
-                    <option value.bind="0">
+                    <option model.bind="0">
                       Hoog
                     </option>
-
-                    <option value.bind="1">
+                    <option model.bind="1">
                       Middel
                     </option>
-
-                    <option value.bind="2">
+                    <option model.bind="2">
                       Laag
                     </option>
                   </select>
-                </div>          
+                </div>
               </div>
 
               <div class="form-group">
                 <div class="col-md-6 col-md-offset-4">
                   <button id="submit" type="submit" class="btn btn-primary">
-                    Post hulpvraag
+                    Pas wijzigingen toe
                   </button>
                 </div>
               </div>

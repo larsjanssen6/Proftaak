@@ -52,6 +52,37 @@ namespace Proftaak.Repositories.HelpQuestionRepo
 
             return helpQuestions;
         }
+        
+        public HelpQuestionModel find(int id)
+        {
+            HelpQuestionModel question = new HelpQuestionModel();
+
+            try
+            {
+                connection.Connect();
+                SqlCommand sqlCommand = new SqlCommand("select hr.id, hr.question, hr.urgent, a.name from help_request hr inner join account a on hr.help_seeker_id = a.id where hr.id=@id", connection.getConnection());
+                sqlCommand.Parameters.AddWithValue("@id", id);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        question.id = Convert.ToInt32(reader["id"]);
+                        question.helpSeeker = reader["name"].ToString();
+                        question.urgent = Convert.ToInt32(reader["urgent"]);
+                        question.question = reader["question"].ToString();
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return question;
+        }
 
         public void store(HelpQuestionModel question, int authId)
         {
@@ -79,7 +110,7 @@ namespace Proftaak.Repositories.HelpQuestionRepo
             }
         }
 
-    public void destroy(int id)
+        public void destroy(int id)
         {
             try
             {

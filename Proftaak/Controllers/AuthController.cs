@@ -61,21 +61,18 @@ namespace AureliaTest.Controllers
         UserModel user = userRepo.find(email);
         string role = userRepo.determineRole(user);
 
-        return CreateAccessToken(user.id.ToString(), user.name, new[] { role });
+        return CreateAccessToken(user.id.ToString(), user.name, role);
     }
 
    
 
     private static AccessToken CreateAccessToken(string userId, 
                                                  string name,
-                                                 string[] roles)
+                                                 string role)
     {
       var claims = new List<Claim>();
 
-      foreach (string role in roles)
-      {
-        claims.Add(new Claim("roles", role));
-      }
+      claims.Add(new Claim("role", role));
       claims.Add(new Claim("userid", userId));
       claims.Add(new Claim("name", name));
 

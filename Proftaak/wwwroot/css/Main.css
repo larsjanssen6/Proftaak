@@ -8,6 +8,10 @@ body {
   background-color: #f5f8fa;
 }
 
+.margin__bottom__small {
+  margin-bottom: 10px;
+}
+
 
 /* start block */
 

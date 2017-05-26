@@ -72,20 +72,6 @@ namespace Proftaak.Repositories.UserRepo
                 {
                     while (reader.Read())
                     {
-
-                         //public int id;
-                         // public string email;
-                         // public int role;
-                         // public string name;
-                         // public string password;
-                         // public string lastName;
-                         // public string address;
-                         // public string zip;
-                         // public DateTime birthdate;
-                         // public string about;
-                         // public string rijbewijs;
-                         // private List<HandicaptModel> handicapts;
-                         // public int status;
                         user.id = Convert.ToInt32(reader["id"]);
                         user.email = reader["email"].ToString();
                         user.role = Convert.ToInt32(reader["role_id"]);

@@ -32,6 +32,12 @@ export class App {
         config.title = 'Aurelia';
         config.map([
             {
+                route: ['bewerk/hulpvraag/:id'],
+                name: 'editHelpQuestion',
+                moduleId: 'components/helpQuestion/editHelpQuestion',
+                auth: true
+            },
+            {
                 route: ['nieuw/hulpvraag'],
                 name: 'newHelpQuestion',
                 moduleId: 'components/helpQuestion/newHelpQuestion',
@@ -47,6 +53,18 @@ export class App {
                 route: ['dashboard'],
                 name: 'dashboard',
                 moduleId: 'components/dashboard/dashboard',
+                auth: true
+            },
+            {
+                route: ['chat'],
+                name: 'chat',
+                moduleId: 'components/chat/chat',
+                auth: true
+            },
+            {
+                route: ['chatlog'],
+                name: 'chatlog',
+                moduleId: 'components/chat/chatlog',
                 auth: true
             },
             {

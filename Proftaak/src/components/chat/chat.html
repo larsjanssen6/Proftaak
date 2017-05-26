@@ -1,0 +1,61 @@
+﻿<template>
+  <div class="header center">
+    <h1>Chats</h1>
+  </div>
+
+  <div class="container">
+    <div class="panel panel-default col-md-3">
+      <div class="panel-body">
+        <div class="col-md-12">
+          <h2>
+            Selecteer een chat uit de lijst of maak een chat aan.
+            <button type="button" class="btn btn-primary btn-sm" href="#">
+              <span class="glyphicon glyphicon-ok"></span> Nieuwe chat maken.
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" click.delegate="openLog()">
+              <span class="glyphicon glyphicon-ok"></span> ChatLog(Beheerder of Hulpverlener)
+            </button>
+          </h2>
+          <ul class="list-group">
+            <li repeat.for="chat of chats" class="list-group-item ${chat.id === $parent.chat.id ? 'active' : ''}">
+              <a click.delegate="$parent.select(chat)">
+                <h4 style="color:black;" class="list-group-item-heading">${chat.userTwo.name} ${chat.userTwo.lastName}</h4>
+                <p style="color:black;" class="list-group-item-text">Aangemaakt op: ${chat.dateCreated}</p>
+              </a>
+              <button type="button" class="btn btn-default btn-sm" click.delegate="disableChat(chat)">
+                <span class="glyphicon glyphicon-remove"></span> verwijderen
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default col-md-8  col-md-offset-1">
+      <div class="panel-body">
+        <div class="col-md-12">
+          <h2>Nadat u een chat heeft aangeklikt kunt u hier chatten met de geselecteerde gebruiker.</h2>
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">Chatbox</div>
+              <div class="panel-body">
+                <div class="row" repeat.for="message of messages">
+                  &nbsp;&nbsp;&nbsp;
+                  <span>${message.messageSender}: ${message.message}</span>
+                </div>
+                <div class="panel-footer">
+                  <div class="input-group">
+                    <input type="text" class="form-control" value.bind="messagebox">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" click.delegate="sendMessage(messagebox)" type="button">Versturen</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

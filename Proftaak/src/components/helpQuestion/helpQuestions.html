@@ -4,7 +4,7 @@
   </div>
 
   <div class="container">
-    <a route-href="route: newHelpQuestion">
+    <a class="btn btn-primary margin__bottom__small" route-href="route: newHelpQuestion">
         Maak hier uw nieuwe hulpvraag
     </a>
 
@@ -23,11 +23,11 @@
                     Email
                   </th>
 
-                  <th class="col-md-3 table__title">
+                  <th class="col-md-3 table__title hidden-xs hidden-sm">
                     Urgentie
                   </th>
 
-                  <th class="col-md-3 table__title">
+                  <th class="col-md-3 table__title hidden-xs hidden-sm">
                     Vraag
                   </th>
                 </tr>
@@ -43,20 +43,20 @@
                   ${question.email}
                 </td>
 
-                <td class="col-md-3">
+                <td class="col-md-3 hidden-xs hidden-sm">
                   <span class="label label-danger" if.bind="question.urgent == 0">Hoog</span>
                   <span class="label label-warning" if.bind="question.urgent == 1">Gemiddeld</span>
                   <span class="label label-info" if.bind="question.urgent == 2">Laag</span>
                 </td>
 
-                <td class="col-md-3">
+                <td class="col-md-3 hidden-xs hidden-sm">
                   ${question.question.slice(0, 10)}....
                 </td>
 
-                <td>
+                <td class="hidden-xs hidden-sm">
                   <i class="material-icons" click.delegate="destroy(question)">&#xE872;</i>
 
-                  <a>
+                  <a route-href="route: editHelpQuestion; params.bind: { id: question.id }">
                     <i class="material-icons">&#xE254;</i>
                   </a>
                 </td>
