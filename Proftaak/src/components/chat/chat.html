@@ -41,7 +41,7 @@
               <div class="panel-body">
                 <div class="row" repeat.for="message of messages">
                   &nbsp;&nbsp;&nbsp;
-                  <span>${message.messageSender}: ${message.message}</span>
+                  <span>${message.messageSender} - ${getMoment(message.time)}: ${message.message}</span>
                 </div>
                 <div class="panel-footer">
                   <div class="input-group">

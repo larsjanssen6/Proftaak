@@ -151,7 +151,7 @@ namespace Proftaak.Repositories.ChatRepo
           {
             while (reader.Read())
             {
-              messages.Add(new ChatReaction(Convert.ToInt32(reader["chat_ID"]), getChatUser(Convert.ToInt32(reader["account_id"])).name, reader["message"].ToString()));
+              messages.Add(new ChatReaction(Convert.ToInt32(reader["chat_ID"]), getChatUser(Convert.ToInt32(reader["account_id"])).name, reader["message"].ToString(), Convert.ToDateTime(reader["time"])));
             }
           }
           connection.disConnect();
@@ -161,16 +161,15 @@ namespace Proftaak.Repositories.ChatRepo
         public void sendMessage(int chatid, int userid, string message)
         {
           connection.Connect();
-          SqlCommand sqlCommand = new SqlCommand("INSERT INTO CHAT_REACTION (account_id, chat_id, message) VALUES (@account_id, @chat_id, @message);", connection.getConnection());
+          SqlCommand sqlCommand = new SqlCommand("INSERT INTO CHAT_REACTION (account_id, chat_id, message, time) VALUES (@account_id, @chat_id, @message, @time);", connection.getConnection());
           sqlCommand.Parameters.AddWithValue("@account_id", userid);
           sqlCommand.Parameters.AddWithValue("@chat_id", chatid);
-          message = "[" + DateTime.Now.ToString() + "]" + " " + message;
           sqlCommand.Parameters.AddWithValue("@message", message);
+          sqlCommand.Parameters.AddWithValue("@time", DateTime.UtcNow);
           sqlCommand.ExecuteNonQuery();
           connection.disConnect();
 
         }
-
         public void addChat(int IDOne, int IDTwo)
         {
 
@@ -178,7 +177,7 @@ namespace Proftaak.Repositories.ChatRepo
           SqlCommand sqlCommand = new SqlCommand("INSERT INTO CHAT (account_one_id, account_two_id, date_created) VALUES (@account_one_id, @account_two_id, @date_created);", connection.getConnection());
           sqlCommand.Parameters.AddWithValue("@account_one_id", IDOne);
           sqlCommand.Parameters.AddWithValue("@account_two_id", IDTwo);
-          sqlCommand.Parameters.AddWithValue("@date_created", DateTime.Now);
+          sqlCommand.Parameters.AddWithValue("@date_created", DateTime.UtcNow);
           sqlCommand.ExecuteNonQuery();
           connection.disConnect();
 
