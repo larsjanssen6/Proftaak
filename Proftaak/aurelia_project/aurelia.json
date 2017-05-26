@@ -118,6 +118,11 @@
 
           "extend",
           {
+            "name": "moment",
+            "path": "../node_modules/moment",
+            "main": "moment"
+          },
+          {
             "name": "aurelia-authentication",
             "path": "../node_modules/aurelia-authentication/dist/amd",
             "main": "aurelia-authentication"

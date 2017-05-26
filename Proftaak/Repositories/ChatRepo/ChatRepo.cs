@@ -107,7 +107,7 @@ namespace Proftaak.Repositories.ChatRepo
           }
           connection.Connect();
           return chats;
-
+      
         }
 
         public UserModel getChatUser(int ID)

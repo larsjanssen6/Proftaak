@@ -5,6 +5,9 @@ import { AuthService } from "aurelia-authentication"
 import * as jwt_decode from 'jwt-decode';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router } from 'aurelia-router'
+import * as moment from 'moment';
+import 'moment/locale/nl';
+
 @autoinject
 export class Chat {
     chats = [];
@@ -18,7 +21,13 @@ export class Chat {
 
     constructor(private http: HttpClient, private auth: AuthService, private event: EventAggregator, private router: Router) {
         this.getChats();
+        moment.locale('nl');
     }
+
+    getMoment(time) {
+        return moment(time).fromNow();
+    } 
+
     getChats() {
         this.http.fetch('chat/chatList', {
             body: json(jwt_decode(this.auth.getAccessToken()).userid)
