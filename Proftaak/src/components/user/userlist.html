@@ -1,0 +1,20 @@
+﻿<template>
+  <table class="table table-striped">
+    <tr>
+      <th>Naam</th>
+      <th>Rol</th>
+      <th>Opties</th>
+    </tr>
+    <tr repeat.for="user of users" class="${user.status == 0 ? 'danger' : ''}">
+      <td>${user.name + " " + user.lastName}</td>
+      <td if.bind="user.role == 1">Hulpbehoevende</td>
+      <td if.bind="user.role == 2">Vrijwilliger</td>
+      <td if.bind="user.role == 3">Hulpverlener</td>
+      <td if.bind="user.role == 4">Beheerder</td>
+      <td>
+        <a class="btn btn-default" href=${user.id} role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Open profiel</a>
+        <a class="btn btn-default" click.delegate="createChat(user)" role="button"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Chatten</a>
+      </td>
+    </tr>
+  </table>
+</template>
