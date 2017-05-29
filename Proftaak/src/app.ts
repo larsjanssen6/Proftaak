@@ -32,6 +32,12 @@ export class App {
         config.title = 'Aurelia';
         config.map([
             {
+                route: ['hulpvraag/:id'],
+                name: 'helpQuestion',
+                moduleId: 'components/helpQuestion/helpQuestion',
+                auth: true
+            },
+            {
                 route: ['bewerk/hulpvraag/:id'],
                 name: 'editHelpQuestion',
                 moduleId: 'components/helpQuestion/editHelpQuestion',

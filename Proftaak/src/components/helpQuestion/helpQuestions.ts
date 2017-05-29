@@ -1,5 +1,6 @@
 ﻿import { HttpClient, json } from "aurelia-fetch-client"
 import { autoinject } from "aurelia-framework"
+import { Router } from 'aurelia-router'
 
 @autoinject
 export class helpQuestions {
@@ -7,7 +8,7 @@ export class helpQuestions {
     questions = [];
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.fetchQuestions();
     }
 
@@ -19,7 +20,20 @@ export class helpQuestions {
             });
     }
 
-    destroy(question) {
+    link(event, question) {
+        event.stopPropagation();
+        this.router.navigate("hulpvraag/" + question.id);
+    }
+
+    editUrl(event, question) {
+        alert('ja');
+        event.stopPropagation();
+        this.router.navigate("bewerk/hulpvraag/" + question.id);
+    }
+
+    destroy(event, question) {
+        event.stopPropagation();
+
         swal({
             title: 'Weet u het zeker?',
             type: 'warning',

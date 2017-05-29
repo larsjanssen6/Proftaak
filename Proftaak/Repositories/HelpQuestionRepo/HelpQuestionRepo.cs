@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proftaak.Repositories.ReactionRepo;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace Proftaak.Repositories.HelpQuestionRepo
     public class HelpQuestionRepo : IHelpQuestionRepo
     {
         ConnectionInterface connection;
+        IReactionRepo reactionRepo; 
 
-        public HelpQuestionRepo(ConnectionInterface connection)
+        public HelpQuestionRepo(ConnectionInterface connection, IReactionRepo reactionRepo)
         {
-          this.connection = connection;
+            this.connection = connection;
+            this.reactionRepo = reactionRepo;
         }
 
         public List<HelpQuestionModel> index()
@@ -60,7 +63,7 @@ namespace Proftaak.Repositories.HelpQuestionRepo
             try
             {
                 connection.Connect();
-                SqlCommand sqlCommand = new SqlCommand("select hr.id, hr.question, hr.urgent, a.name from help_request hr inner join account a on hr.help_seeker_id = a.id where hr.id=@id", connection.getConnection());
+                SqlCommand sqlCommand = new SqlCommand("select hr.id, hr.question, hr.urgent, a.name from help_request hr inner join account a on hr.help_seeker_id = a.id where hr.id = @id", connection.getConnection());
                 sqlCommand.Parameters.AddWithValue("@id", id);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
 
@@ -80,6 +83,8 @@ namespace Proftaak.Repositories.HelpQuestionRepo
             {
                 throw;
             }
+
+            question.reactions = reactionRepo.index(question.id);
 
             return question;
         }
@@ -110,6 +115,28 @@ namespace Proftaak.Repositories.HelpQuestionRepo
             }
         }
 
+        public void update(HelpQuestionModel question)
+        {
+            try
+            {
+                connection.Connect();
+                SqlCommand sqlCommand = new SqlCommand("update help_request set question = @question, urgent = @urgent where id = @id", connection.getConnection());
+                sqlCommand.Parameters.AddWithValue("@id", question.id);
+                sqlCommand.Parameters.AddWithValue("@question", question.question);
+                sqlCommand.Parameters.AddWithValue("@urgent", question.urgent);
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+              throw;
+            }
+
+            finally
+            {
+                connection.disConnect();
+            }
+        }
+
         public void destroy(int id)
         {
             try
@@ -131,5 +158,5 @@ namespace Proftaak.Repositories.HelpQuestionRepo
                 connection.disConnect();
             }
         }
-  }
+    }
 }

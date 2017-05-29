@@ -11,6 +11,7 @@ namespace Proftaak.Repositories.HelpQuestionRepo
         void destroy(int id);
         void store(HelpQuestionModel question, int authId);
         HelpQuestionModel find(int id);
+        void update(HelpQuestionModel question);
     }
 }
 

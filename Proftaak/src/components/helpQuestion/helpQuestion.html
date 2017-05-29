@@ -1,0 +1,88 @@
+﻿<template>
+  <require from="../reaction/reactions"></require>
+  <div class="header center">
+    <h1>Hulpvraag</h1>
+  </div>
+
+  <div class="container-custom">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-md-11">
+                <u>
+                  <a href="#" style="color:white;">
+                    ${question.helpSeeker}
+                  </a>
+                </u>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="row" style="border-bottom: 1px solid black;">
+              <div class="col-md-12 margin__bottom__small">
+                <select class="form-control" value.bind="question.urgent" if.bind="editing" required>
+                  <option disabled value="">Selecteer urgentie</option>
+
+                  <option model.bind="0">
+                    Hoog
+                  </option>
+                  <option model.bind="1">
+                    Middel
+                  </option>
+                  <option model.bind="2">
+                    Laag
+                  </option>
+                </select>
+
+                <div if.bind="!editing">
+                  Urgentie:
+                  <span class="label label-danger" if.bind="question.urgent == 0">Hoog</span>
+                  <span class="label label-warning" if.bind="question.urgent == 1">Gemiddeld</span>
+                  <span class="label label-info" if.bind="question.urgent == 2">Laag</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 margin__top__small">
+                <div if.bind="editing">
+                  <textarea class="form-control margin__bottom__small" value.bind="question.question" name="message"></textarea>
+
+                  <button class="btn btn-xs btn-second" click.delegate="update()">Update</button>
+                  <button class="btn btn-xs btn-link" click.delegate="editing = false">Annuleer</button>
+                </div>
+
+                <div if.bind="!editing">
+                  <p>${question.question}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-primary slideDown" click.delegate="destroy()">
+                  Verwijder
+                </button>
+
+                <button class="btn btn-second slideDown" if.bind="!editing" click.delegate="editing = true">
+                  Bewerk
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <reactions reactions.bind="question.reactions"></reactions>
+        <textarea class="form-control margin__bottom__small margin__top__small" value.bind="reaction.message" name="reaction"></textarea>
+        <button click.delegate="post()" class="btn btn-primary">
+          Post reactie
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

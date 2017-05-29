@@ -15,7 +15,7 @@ namespace Proftaak.Controllers
 
         public HelpQuestionController()
         {
-            helpQuestionRepo = new HelpQuestionRepo(new Connection());
+            helpQuestionRepo = new HelpQuestionRepo(new Connection(), new ReactionRepo(new Connection()));
         }
 
         [HttpPost]
@@ -36,9 +36,17 @@ namespace Proftaak.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Hulpbehoevende, Vrijwilliger, Hulpverlener, Beheerder")]
+        public IActionResult update([FromBody] HelpQuestionModel question)
+        {
+            helpQuestionRepo.update(question);
+            return StatusCode(200);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Hulpbehoevende, Vrijwilliger, Hulpverlener, Beheerder")]
         public JsonResult show([FromBody] int id)
         {
-          return Json(helpQuestionRepo.find(id));
+            return Json(helpQuestionRepo.find(id));
         }
 
         [HttpPost]

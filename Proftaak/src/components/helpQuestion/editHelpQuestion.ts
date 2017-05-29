@@ -22,13 +22,13 @@ export class editHelpQuestion {
             });
     }
 
-    store() {
-        this.http.fetch('helpquestion/store', {
+    update() {
+        this.http.fetch('helpquestion/update', {
             body: json(this.question)
         }).then(response => {
             if (response.status == 200) {
                 swal({
-                    title: "Hulpvraag succesvol aangemaakt",
+                    title: "Hulpvraag succesvol geupdatet",
                     type: "success",
                     showConfirmButton: false,
                     timer: 2000
