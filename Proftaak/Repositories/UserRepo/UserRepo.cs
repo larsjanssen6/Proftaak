@@ -95,8 +95,74 @@ namespace Proftaak.Repositories.UserRepo
 
             return user;
         }
+    public void register(string email, string password, string firstname, string lastname, string address, string zip, DateTime birthdate, string handicapt, string licence, string role, string number)
+    {
+      if (licence == "yes")
+      {
+        licence = "Ja";
+      }
+      else
+      {
+        licence = "Nee";
+      }
+      int roleID;
+      int status = 0;
+      if (role == "Hulpbehoevende")
+      {
+        roleID = 1;
+        status = 1;
+      }
+      else
+      {
+        roleID = 2;
+        status = 0;
+      }
+      SqlCommand firstSqlCommand = new SqlCommand("INSERT INTO ACCOUNT (role_id, email, password, name, last_name, address, zip, birthdate, rijbewijs, nummer,status) VALUES (@rank, @email, @password, @name, @last_name, @address, @zip, @birthdate, @licence, @number, @status) SELECT SCOPE_IDENTITY()", connection.getConnection());
+      connection.Connect();
+      firstSqlCommand.Parameters.AddWithValue("@name", firstname);
+      firstSqlCommand.Parameters.AddWithValue("@address", address);
+      firstSqlCommand.Parameters.AddWithValue("@zip", zip);
+      firstSqlCommand.Parameters.AddWithValue("@email", email);
+      firstSqlCommand.Parameters.AddWithValue("@status", status);
+      firstSqlCommand.Parameters.AddWithValue("@rank", roleID);
+      firstSqlCommand.Parameters.AddWithValue("@licence", licence);
+      firstSqlCommand.Parameters.AddWithValue("@last_name", lastname);
+      firstSqlCommand.Parameters.AddWithValue("@birthdate", birthdate.ToString("MM/dd/yyyy"));
+      firstSqlCommand.Parameters.AddWithValue("@password", password);
+      firstSqlCommand.Parameters.AddWithValue("@number", number);
+      firstSqlCommand.Connection = connection.getConnection();
+      int userId = (int)(decimal)firstSqlCommand.ExecuteScalar();
 
-        public string determineRole(UserModel user)
+
+      if (handicapt != "" || handicapt != null)
+      {
+        int handicaptID = 1;
+        switch (handicapt)
+        {
+          case "geen arm":
+            handicaptID = 2;
+            break;
+          case "geen been":
+            handicaptID = 1;
+            break;
+          case "ouderdom's problemen":
+            handicaptID = 4;
+            break;
+          case "etc.":
+            handicaptID = 2;
+            break;
+          default:
+            break;
+        }
+        SqlCommand secondSqlCommand = new SqlCommand("INSERT INTO HANDICAPT_USER (account_id, handicapt_id) VALUES (@account_id, @handicapt_id);", connection.getConnection());
+        secondSqlCommand.Parameters.AddWithValue("@account_id", userId);
+        secondSqlCommand.Parameters.AddWithValue("@handicapt_id", handicaptID);
+        secondSqlCommand.ExecuteNonQuery();
+      }
+      connection.disConnect();
+    }
+
+    public string determineRole(UserModel user)
         {
             string role_text;
 

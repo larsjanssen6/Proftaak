@@ -63,8 +63,24 @@ namespace AureliaTest.Controllers
 
         return CreateAccessToken(user.id.ToString(), user.name, role);
     }
+    [HttpPost]
+    public void register([FromBody] dynamic user)
+    {
+      string email = user.email;
+      string password = user.password;
+      string firstname = user.firstname;
+      string lastname = user.lastname;
+      string address = user.address;
+      string zip = user.zip;
+      DateTime birthdate = user.birthdate;
+      string handicapt = user.handicapt;
+      string licence = user.licence;
+      string role = user.role;
+      string number = user.number;
+      userRepo.register(email, password, firstname, lastname, address, zip, birthdate, handicapt, licence, role, number);
+    }
 
-   
+
 
     private static AccessToken CreateAccessToken(string userId, 
                                                  string name,

@@ -1,0 +1,130 @@
+﻿<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Registreren
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal" role="form" method="POST" submit.delegate="register()">
+              <fieldset>
+                <!-- first name-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="firstname">Voornaam</label>
+                  <div class="col-md-6">
+                    <input id="firstname" name="firstname" type="text" placeholder="voornaam" class="form-control" value.bind="firstname" required>
+                  </div>
+                </div>
+                <!-- last name-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="lastname">Achternaam</label>
+                  <div class="col-md-6">
+                    <input id="lastname" name="lastname" type="text" placeholder="achternaam" class="form-control" value.bind="lastname" required>
+                  </div>
+                </div>
+                <!-- address-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="address">Adres</label>
+                  <div class="col-md-6">
+                    <input id="address" name="address" type="text" placeholder="adres" class="form-control" value.bind="address" required>
+                  </div>
+                </div>
+                <!-- zip-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="zip">Postcode</label>
+                  <div class="col-md-6">
+                    <input id="zip" name="zip" type="text" placeholder="postcode" class="form-control" value.bind="zip" required>
+                  </div>
+                </div>
+                <!-- e-mail-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="email">E-mail</label>
+                  <div class="col-md-6">
+                    <input id="email" name="email" type="email" placeholder="e-mail" class="form-control" value.bind="email" required>
+                  </div>
+                </div>
+                <!-- password-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="password">Wachtwoord</label>
+                  <div class="col-md-6">
+                    <input id="password" name="password" type="password" placeholder="wachtwoord" class="form-control" value.bind="password" required>
+                  </div>
+                </div>
+                <!-- passwordConfirm-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="passwordConfirm">Bevestig wachtwoord</label>
+                  <div class="col-md-6">
+                    <input id="passwordConfirm" name="passwordConfirm" type="password" placeholder="wachtwoord" class="form-control" value.bind="passwordConfirm" required>
+                  </div>
+                </div>
+                <!-- birthdate-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="birthdate">Geboortedatum</label>
+                  <div class="col-md-6">
+                    <input id="birthdate" name="birthdate" type="date" placeholder="dd-mm-yyyy" class="form-control" value.bind="birthdate" required>
+                  </div>
+                </div>
+                <!-- number-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="number">Telefoonnummer</label>
+                  <div class="col-md-6">
+                    <input id="number" name="number" type="number" placeholder="06..." class="form-control" value.bind="number" required>
+                  </div>
+                </div>
+                <!-- licence -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="licence">Heeft u een rijbewijs?</label>
+                  <div class="col-md-6">
+                    <label class="radio-inline" for="licence-0">
+                      <input type="radio" name="licence" id="licence-0" value="yes" checked="checked" checked.bind="licence" required>
+                      Ja
+                    </label>
+                    <label class="radio-inline" for="licence-1">
+                      <input type="radio" name="licence" id="licence-1" checked.bind="licence" value="no">
+                      Nee
+                    </label>
+                  </div>
+                </div>
+                <!-- role -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="role">Wat is uw rol?</label>
+                  <div class="col-md-6">
+                    <label class="radio-inline" for="role-0">
+                      <input type="radio" name="role" id="licence-0" value="Hulpbehoevende" checked="checked" checked.bind="role" required>
+                      Hulpbehoevende
+                    </label>
+                    <label class="radio-inline" for="role-1">
+                      <input type="radio" name="role" id="role-1" checked.bind="role" value="Vrijwilliger">
+                      Vrijwilliger
+                    </label>
+                  </div>
+                </div>
+                <!-- handicapt -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="handicapt">Handicapt template</label>
+                  <div class="col-md-6">
+                    <select id="handicapt" name="handicapt" class="form-control" value.bind="handicapt">
+                      <option disabled selected value> -- Selecteer een handicapt als het van toepassing is -- </option>
+                      <option>geen arm</option>
+                      <option>geen been</option>
+                      <option>ouderdom's problemen</option>
+                      <option>etc.</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="submit"></label>
+                  <div class="col-md-6">
+                    <button id="submit" name="submit" class="btn btn-primary">Registreren</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
