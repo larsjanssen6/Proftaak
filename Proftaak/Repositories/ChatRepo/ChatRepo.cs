@@ -154,6 +154,7 @@ namespace Proftaak.Repositories.ChatRepo
               messages.Add(new ChatReaction(Convert.ToInt32(reader["chat_ID"]), getChatUser(Convert.ToInt32(reader["account_id"])).name, reader["message"].ToString(), Convert.ToDateTime(reader["time"])));
             }
           }
+
           connection.disConnect();
           return messages;
         }

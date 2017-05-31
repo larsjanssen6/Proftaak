@@ -1,0 +1,27 @@
+﻿<template>
+  <div class="container">
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Naam</th>
+        <th>Tijd</th>
+        <th>status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="appointment of appointments">
+        <td class="col-md-2">
+          ${appointment.name}
+        </td>
+        <td class="col-md-8">
+          ${appointment.date}
+        </td>
+        <td class="col-md-2">
+         <span if.bind="appointment.status">Geaccepteerd</span> 
+         <span if.bind="!appointment.status">Niet geaccepteerd</span>
+        </td>      
+      </tr>
+    </tbody>
+  </table>
+</template>

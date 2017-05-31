@@ -37,6 +37,7 @@ namespace Proftaak.Controllers
         [HttpPost]
         [Authorize(Roles = "Hulpbehoevende, Vrijwilliger, Hulpverlener, Beheerder")]
         public IActionResult update([FromBody] HelpQuestionModel question)
+
         {
             helpQuestionRepo.update(question);
             return StatusCode(200);

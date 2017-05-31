@@ -1,20 +1,35 @@
 ﻿<template>
-  <table class="table table-striped">
-    <tr>
-      <th>Naam</th>
-      <th>Rol</th>
-      <th>Opties</th>
-    </tr>
-    <tr repeat.for="user of users" class="${user.status == 0 ? 'danger' : ''}">
-      <td>${user.name + " " + user.lastName}</td>
-      <td if.bind="user.role == 1">Hulpbehoevende</td>
-      <td if.bind="user.role == 2">Vrijwilliger</td>
-      <td if.bind="user.role == 3">Hulpverlener</td>
-      <td if.bind="user.role == 4">Beheerder</td>
-      <td>
-        <a class="btn btn-default" href=${user.id} role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Open profiel</a>
-        <a class="btn btn-default" click.delegate="createChat(user)" role="button"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Chatten</a>
-      </td>
-    </tr>
-  </table>
+  <div class="header center">
+    <h1>Leden</h1>
+  </div>
+
+  <div class="container container__margin__top">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <th>Naam</th>
+                <th>Rol</th>
+                <th>Opties</th>
+              </tr>
+              <tr repeat.for="user of users" class="${user.status == 0 ? 'danger' : ''}">
+                <td>${user.name + " " + user.lastName}</td>
+                <td if.bind="user.role == 1">Hulpbehoevende</td>
+                <td if.bind="user.role == 2">Vrijwilliger</td>
+                <td if.bind="user.role == 3">Hulpverlener</td>
+                <td if.bind="user.role == 4">Beheerder</td>
+                <td>
+                  <a class="btn btn-default" href=${user.id} role="button"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Open profiel</a>
+                  <a class="btn btn-default" click.delegate="createChat(user)" role="button"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>Chatten</a>
+                  <a class="btn btn-default" click.delegate="createAppointment(user)" role="button"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>Afspraak maken</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

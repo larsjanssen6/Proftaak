@@ -80,6 +80,12 @@ export class App {
                 auth: true
             },
             {
+                route: ['agenda'],
+                name: 'agenda',
+                moduleId: 'components/agenda/agenda',
+                auth: true
+            },
+            {
                 route: ['/', 'register'],
                 name: 'register',
                 moduleId: 'components/authentication/register'

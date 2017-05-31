@@ -39,6 +39,32 @@ export class App {
 
         this.router.navigate("chat");
     }
+
+    createAppointment(user) {
+        swal({
+            title: "Afspraak",
+            text: "Kies hier uw datum voor uw afspraak:",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            animation: "slide-from-top",
+            inputPlaceholder: "Het volgende formaat is verplicht: dd-mm-jjjj"
+        },
+            function (inputValue) {
+                if (inputValue === false) return false;
+
+                if (inputValue === "") {
+                    swal.showInputError("You need to write something!");
+                    return false
+                }
+                this.http.fetch('agenda/store', {
+                    body: json(new agenda(inputValue.toString(), user.id))
+                }).then(() => {
+                    swal("Gelukt!", "Uw verzoek is verzonden.");
+
+                })
+            }.bind(this));
+    }
 }
 
 export class users {
@@ -48,4 +74,15 @@ export class users {
         this.one = one;
         this.two = two;
     }
+}
+
+export class agenda {
+    date: Date;
+    offersHelp: string;
+    constructor(date: Date, offershelp: string)
+    {
+        this.date = date;
+        this.offersHelp = offershelp;
+    }
+
 }
