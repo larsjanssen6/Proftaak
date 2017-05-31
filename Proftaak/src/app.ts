@@ -74,6 +74,12 @@ export class App {
                 auth: true
             },
             {
+                route: ['personen'],
+                name: 'personen',
+                moduleId: 'components/user/userlist',
+                auth: true
+            },
+            {
                 route: ['/', 'register'],
                 name: 'register',
                 moduleId: 'components/authentication/register'

@@ -161,6 +161,22 @@ namespace Proftaak.Repositories.UserRepo
       }
       connection.disConnect();
     }
+    public List<UserModel> getUsers()
+    {
+      connection.Connect();
+      SqlCommand command = new SqlCommand("SELECT * FROM Account", connection.getConnection());
+
+      List<UserModel> data = new List<UserModel>();
+      SqlDataReader reader = command.ExecuteReader();
+      while (reader.Read())
+      {
+        DateTime bullshit = new DateTime(1990, 1, 1);
+        UserModel user = new UserModel(Convert.ToInt16(reader["id"]), "email hidden", Convert.ToInt16(reader["role_id"]), reader["name"] + "", reader["last_name"] + "", reader["address"] + "", "ZIP code hidden", bullshit, "info hidden", Convert.ToInt16(reader["status"]), "license hidden", 666);
+        data.Add(user);
+      }
+      connection.disConnect();
+      return data;
+    }
 
     public string determineRole(UserModel user)
         {

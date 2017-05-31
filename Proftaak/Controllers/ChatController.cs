@@ -52,5 +52,12 @@ namespace Proftaak.Controllers
       string messagetext = message.message;
       chatRepo.sendMessage(chatid, userid, messagetext);
     }
+    [HttpPost]
+    public void createChat([FromBody] dynamic users)
+    {
+      int one = users.one;
+      int two = users.two;
+      chatRepo.addChat(one, two);
+    }
   }
 }

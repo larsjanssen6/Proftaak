@@ -165,7 +165,7 @@ namespace Proftaak.Repositories.ChatRepo
           sqlCommand.Parameters.AddWithValue("@account_id", userid);
           sqlCommand.Parameters.AddWithValue("@chat_id", chatid);
           sqlCommand.Parameters.AddWithValue("@message", message);
-          sqlCommand.Parameters.AddWithValue("@time", DateTime.UtcNow);
+          sqlCommand.Parameters.AddWithValue("@time", DateTime.Now);
           sqlCommand.ExecuteNonQuery();
           connection.disConnect();
 
@@ -177,7 +177,7 @@ namespace Proftaak.Repositories.ChatRepo
           SqlCommand sqlCommand = new SqlCommand("INSERT INTO CHAT (account_one_id, account_two_id, date_created) VALUES (@account_one_id, @account_two_id, @date_created);", connection.getConnection());
           sqlCommand.Parameters.AddWithValue("@account_one_id", IDOne);
           sqlCommand.Parameters.AddWithValue("@account_two_id", IDTwo);
-          sqlCommand.Parameters.AddWithValue("@date_created", DateTime.UtcNow);
+          sqlCommand.Parameters.AddWithValue("@date_created", DateTime.Now);
           sqlCommand.ExecuteNonQuery();
           connection.disConnect();
 
