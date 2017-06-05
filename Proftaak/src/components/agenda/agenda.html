@@ -7,6 +7,7 @@
         <th>Naam</th>
         <th>Tijd</th>
         <th>status</th>
+        <th>optie</th>
       </tr>
     </thead>
     <tbody>
@@ -18,9 +19,15 @@
           ${appointment.date}
         </td>
         <td class="col-md-2">
-         <span if.bind="appointment.status">Geaccepteerd</span> 
-         <span if.bind="!appointment.status">Niet geaccepteerd</span>
-        </td>      
+          <span if.bind="appointment.accepted">Geaccepteerd</span>
+          <span if.bind="!appointment.accepted">Niet geaccepteerd</span>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm" click.delegate="changeStatus(appointment)">
+            <span if.bind="appointment.accepted">Weigeren</span>
+            <span if.bind="!appointment.accepted">Accepteren</span>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

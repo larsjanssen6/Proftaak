@@ -7,94 +7,94 @@ using System.Threading.Tasks;
 
 namespace Proftaak.Repositories.UserRepo
 {
-    public class UserRepo : IUserRepo
+  public class UserRepo : IUserRepo
+  {
+    ConnectionInterface connection;
+
+    public UserRepo(ConnectionInterface connection)
     {
-        ConnectionInterface connection;
+      this.connection = connection;
+    }
 
-        public UserRepo(ConnectionInterface connection)
+    public bool loginEmail(string email, string passwordFilledIn)
+    {
+      bool login = false;
+      string passwordDatabase = "";
+
+      if (email == null || email == "" || passwordFilledIn == null || passwordFilledIn == "") return false;
+
+      try
+      {
+        connection.Connect();
+        SqlCommand sqlCommand = new SqlCommand("SELECT * from ACCOUNT where email like @email", connection.getConnection());
+
+        sqlCommand.Parameters.AddWithValue("@email", email);
+        SqlDataReader reader = sqlCommand.ExecuteReader();
+        if (reader.HasRows)
         {
-            this.connection = connection;
+          while (reader.Read())
+          {
+            passwordDatabase = reader["password"].ToString();
+          }
         }
+      }
 
-        public bool loginEmail(string email, string passwordFilledIn)
+      catch (Exception)
+      {
+        throw;
+      }
+
+      finally
+      {
+        connection.disConnect();
+      }
+
+      if (passwordDatabase == passwordFilledIn)
+      {
+        login = true;
+      }
+
+      return login;
+    }
+
+    public UserModel find(string email)
+    {
+      UserModel user = new UserModel();
+
+      try
+      {
+        connection.Connect();
+        SqlCommand sqlCommand = new SqlCommand("select * from account where email=@email", connection.getConnection());
+        sqlCommand.Parameters.AddWithValue("@email", email);
+        SqlDataReader reader = sqlCommand.ExecuteReader();
+
+        if (reader.HasRows)
         {
-            bool login = false;
-            string passwordDatabase = "";
-
-            if (email == null || email == "" || passwordFilledIn == null || passwordFilledIn == "") return false;
-
-            try
-            {
-                connection.Connect();
-                SqlCommand sqlCommand = new SqlCommand("SELECT * from ACCOUNT where email like @email", connection.getConnection());
-
-                sqlCommand.Parameters.AddWithValue("@email", email);
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                      passwordDatabase = reader["password"].ToString();
-                    }
-                }
-            }
-
-            catch (Exception)
-            {
-                throw;
-            }
-
-            finally
-            {
-                connection.disConnect();
-            }
-
-            if (passwordDatabase == passwordFilledIn)
-            {
-                login = true;
-            }
-
-            return login;
+          while (reader.Read())
+          {
+            user.id = Convert.ToInt32(reader["id"]);
+            user.email = reader["email"].ToString();
+            user.role = Convert.ToInt32(reader["role_id"]);
+            user.name = reader["name"].ToString();
+            user.password = reader["password"].ToString();
+            user.lastName = reader["last_name"].ToString();
+            user.address = reader["address"].ToString();
+            user.zip = reader["zip"].ToString();
+            user.birthdate = Convert.ToDateTime(reader["birthdate"]);
+            user.about = reader["about"].ToString();
+            user.rijbewijs = reader["rijbewijs"].ToString();
+            user.status = Convert.ToInt32(reader["status"]);
+          }
         }
+      }
 
-        public UserModel find(string email)
-        {
-            UserModel user = new UserModel();
+      catch (Exception ex)
+      {
+        throw;
+      }
 
-            try
-            {
-                connection.Connect();
-                SqlCommand sqlCommand = new SqlCommand("select * from account where email=@email", connection.getConnection());
-                sqlCommand.Parameters.AddWithValue("@email", email);
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        user.id = Convert.ToInt32(reader["id"]);
-                        user.email = reader["email"].ToString();
-                        user.role = Convert.ToInt32(reader["role_id"]);
-                        user.name = reader["name"].ToString();
-                        user.password = reader["password"].ToString();
-                        user.lastName = reader["last_name"].ToString();
-                        user.address = reader["address"].ToString();
-                        user.zip = reader["zip"].ToString();
-                        user.birthdate = Convert.ToDateTime(reader["birthdate"]);
-                        user.about = reader["about"].ToString();
-                        user.rijbewijs = reader["rijbewijs"].ToString();
-                        user.status = Convert.ToInt32(reader["status"]);
-                    }
-                }
-            }
-
-            catch (Exception ex)
-            {
-                throw;
-            }
-
-            return user;
-        }
+      return user;
+    }
     public void register(string email, string password, string firstname, string lastname, string address, string zip, DateTime birthdate, string handicapt, string licence, string role, string number)
     {
       if (licence == "yes")
@@ -179,29 +179,45 @@ namespace Proftaak.Repositories.UserRepo
     }
 
     public string determineRole(UserModel user)
-        {
-            string role_text;
+    {
+      string role_text;
 
-            switch (user.role)
-            {
-              case 1:
-                role_text = "Hulpbehoevende"; 
-                break;
-              case 2:
-                role_text = "Vrijwilliger";
-                break;
-              case 3:
-                role_text = "Hulpverlener";
-                break;
-              case 4:
-                role_text = "Beheerder";
-                break;
-              default:
-                role_text = "Error";
-                break;
-            }
+      switch (user.role)
+      {
+        case 1:
+          role_text = "Hulpbehoevende";
+          break;
+        case 2:
+          role_text = "Vrijwilliger";
+          break;
+        case 3:
+          role_text = "Hulpverlener";
+          break;
+        case 4:
+          role_text = "Beheerder";
+          break;
+        default:
+          role_text = "Error";
+          break;
+      }
 
-            return role_text;
-        }
+      return role_text;
     }
+    public List<UserModel> getReviewUsers()
+    {
+      connection.Connect();
+      SqlCommand command = new SqlCommand("SELECT * FROM Account where role_id != 1;", connection.getConnection());
+
+      List<UserModel> data = new List<UserModel>();
+      SqlDataReader reader = command.ExecuteReader();
+      while (reader.Read())
+      {
+        DateTime bullshit = new DateTime(1990, 1, 1);
+        UserModel user = new UserModel(Convert.ToInt16(reader["id"]), "email hidden", Convert.ToInt16(reader["role_id"]), reader["name"] + "", reader["last_name"] + "", reader["address"] + "", "ZIP code hidden", bullshit, "info hidden", Convert.ToInt16(reader["status"]), "license hidden", 666);
+        data.Add(user);
+      }
+      connection.disConnect();
+      return data;
+    }
+  }
 }

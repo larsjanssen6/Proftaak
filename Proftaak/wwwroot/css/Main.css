@@ -16,6 +16,12 @@ body {
   margin-top: 10px;
 }
 
+.scroll {
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 300px;
+}
+
 
 /* start block */
 

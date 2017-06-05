@@ -11,6 +11,6 @@ namespace Proftaak.Repositories.AgendaRepo
     void addAppointment(DateTime date, int offerhelp, int needsHelp);
     List<AgendaModel> getSeekersAppointment(int ID);
     List<AgendaModel> getGiversAppointment(int ID);
-    void updateInterview(AgendaModel Appointment);
+    void updateInterview(int ID, bool Accepted);
   }
 }

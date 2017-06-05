@@ -40,5 +40,21 @@ namespace Proftaak.Controllers
     {
       return Json(agendaRepo.getGiversAppointment(ID));
     }
+    [HttpPost]
+    public IActionResult update([FromBody] dynamic appointment)
+    {
+      try
+      {
+        int ID = appointment.id;
+        bool accepted = appointment.accepted;
+        accepted = !accepted;
+        agendaRepo.updateInterview(ID, accepted);
+        return StatusCode(200);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500);
+      }
+    }
   }
 }

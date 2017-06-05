@@ -71,5 +71,19 @@ namespace Proftaak.Repositories.AgendaRepo
       sqlCommand.ExecuteNonQuery();
       connection.disConnect();
     }
+    public void updateInterview(int ID, bool accepted)
+    {
+      int acceptedInt = 0;
+      if (accepted)
+      {
+        acceptedInt = 1;
+      }
+      connection.Connect();
+      SqlCommand sqlCommand = new SqlCommand("Update INtroducty_talk set accepted = @accepted where ID= @ID", connection.getConnection());
+      sqlCommand.Parameters.AddWithValue("@ID", ID);
+      sqlCommand.Parameters.AddWithValue("@accepted", acceptedInt);
+      sqlCommand.ExecuteNonQuery();
+      connection.disConnect();
+    }
   }
 }
