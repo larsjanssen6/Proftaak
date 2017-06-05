@@ -1,34 +1,44 @@
 ﻿<template>
-  <div class="container">
+  <div class="header center">
+    <h1>Agenda</h1>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Naam</th>
-        <th>Tijd</th>
-        <th>status</th>
-        <th>optie</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr repeat.for="appointment of appointments">
-        <td class="col-md-2">
-          ${appointment.name}
-        </td>
-        <td class="col-md-8">
-          ${appointment.date}
-        </td>
-        <td class="col-md-2">
-          <span if.bind="appointment.accepted">Geaccepteerd</span>
-          <span if.bind="!appointment.accepted">Niet geaccepteerd</span>
-        </td>
-        <td>
-          <button type="button" class="btn btn-primary btn-sm" click.delegate="changeStatus(appointment)">
-            <span if.bind="appointment.accepted">Weigeren</span>
-            <span if.bind="!appointment.accepted">Accepteren</span>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="container">
+    <div class="container">
+      <div class="panel panel-default col-md-12">
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Naam</th>
+                <th>Tijd</th>
+                <th>status</th>
+                <th>optie</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr repeat.for="appointment of appointments">
+                <td class="col-md-2">
+                  ${appointment.name}
+                </td>
+                <td class="col-md-8">
+                  ${appointment.date}
+                </td>
+                <td class="col-md-2">
+                  <span if.bind="appointment.accepted">Geaccepteerd</span>
+                  <span if.bind="!appointment.accepted">Niet geaccepteerd</span>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-sm" click.delegate="changeStatus(appointment)">
+                    <span if.bind="appointment.accepted">Weigeren</span>
+                    <span if.bind="!appointment.accepted">Accepteren</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

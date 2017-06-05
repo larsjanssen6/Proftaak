@@ -16,7 +16,7 @@
               <span class="glyphicon glyphicon-ok"></span> ChatLog(Beheerder of Hulpverlener)
             </button>
           </h2>
-          <ul class="list-group">
+          <ul class="list-group scroll">
             <li repeat.for="chat of chats" class="list-group-item ${chat.id === $parent.chat.id ? 'active' : ''}">
               <a click.delegate="$parent.select(chat)">
                 <h4 style="color:black;" class="list-group-item-heading">${chat.userTwo.name} ${chat.userTwo.lastName}</h4>
