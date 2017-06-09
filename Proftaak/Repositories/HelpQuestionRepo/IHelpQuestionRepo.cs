@@ -9,7 +9,7 @@ namespace Proftaak.Repositories.HelpQuestionRepo
     {
         List<HelpQuestionModel> index();
         void destroy(int id);
-        void store(HelpQuestionModel question, int authId);
+        int store(HelpQuestionModel question, int authId);
         HelpQuestionModel find(int id);
         void update(HelpQuestionModel question);
     }

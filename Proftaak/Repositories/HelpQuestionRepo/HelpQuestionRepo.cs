@@ -89,11 +89,13 @@ namespace Proftaak.Repositories.HelpQuestionRepo
             return question;
         }
 
-        public void store(HelpQuestionModel question, int authId)
+        public int store(HelpQuestionModel question, int authId)
         {
+            int id;
+
             try
             {
-                SqlCommand sqlCommand = new SqlCommand("insert into help_request (help_seeker_id, urgent, question) VALUES (@help_seeker_id, @urgent, @question)", connection.getConnection());
+                SqlCommand sqlCommand = new SqlCommand("insert into help_request (help_seeker_id, urgent, question) VALUES (@help_seeker_id, @urgent, @question) select scope_identity()", connection.getConnection());
                 connection.Connect();
                 sqlCommand.Parameters.AddWithValue("@help_seeker_id", authId);
                 sqlCommand.Parameters.AddWithValue("@urgent", question.urgent);
@@ -101,8 +103,8 @@ namespace Proftaak.Repositories.HelpQuestionRepo
 
                 sqlCommand.Connection = connection.getConnection();
 
-                sqlCommand.ExecuteNonQuery();
-            }
+                id = (int)(decimal)sqlCommand.ExecuteScalar();
+      }
 
             catch (Exception)
             {
@@ -113,6 +115,8 @@ namespace Proftaak.Repositories.HelpQuestionRepo
             {
                 connection.disConnect();
             }
+
+            return id;
         }
 
         public void update(HelpQuestionModel question)
