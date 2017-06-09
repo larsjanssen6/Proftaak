@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Proftaak.Repositories.UserRepo
 {
-    interface IUserRepo
+    public interface IUserRepo
     {
         bool loginEmail(string email, string passwordFilledIn);
         UserModel find(string email);
