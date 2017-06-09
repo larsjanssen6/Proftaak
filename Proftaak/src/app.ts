@@ -3,9 +3,9 @@ import { Router, RouterConfiguration, Next, Redirect, NavigationInstruction } fr
 import { HttpClient } from 'aurelia-fetch-client';
 import { FetchConfig } from 'aurelia-authentication';
 import { Container } from 'aurelia-dependency-injection';
-import { AuthService } from 'aurelia-authentication';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import * as jwt_decode from 'jwt-decode';
+import { AuthService } from "aurelia-authentication"
 
 @autoinject
 export class App {
@@ -31,6 +31,18 @@ export class App {
 
         config.title = 'Aurelia';
         config.map([
+            {
+                route: ['account/:id'],
+                name: 'account',
+                moduleId: 'components/user/account',
+                auth: true
+            },
+            {
+                route: ['hulpvraag/:id'],
+                name: 'helpQuestion',
+                moduleId: 'components/helpQuestion/helpQuestion',
+                auth: true
+            },
             {
                 route: ['hulpvraag/:id'],
                 name: 'helpQuestion',
@@ -153,6 +165,10 @@ export class App {
                     timer: 2000
                 });
             });
+    }
+
+    account() {
+        this.router.navigate("account/" + jwt_decode(this.authService.getAccessToken()).userid);
     }
 }
 

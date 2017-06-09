@@ -23,5 +23,25 @@ namespace Proftaak.Controllers
     {
       return Json(userRepo.getUsers());
     }
+
+    [HttpPost]
+    public JsonResult GetUser([FromBody] int id)
+    {
+      return Json(userRepo.findID(id));
+    }
+
+    [HttpPost]
+    public IActionResult update([FromBody] UserModel user)
+    {
+      userRepo.updateUser(user);
+      return StatusCode(200);
+    }
+
+    [HttpPost]
+    public IActionResult toggle([FromBody] UserModel user)
+    {
+      userRepo.toggleAccount(user);
+      return StatusCode(200);
+    }
   }
 }

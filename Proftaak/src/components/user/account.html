@@ -1,0 +1,44 @@
+﻿<template>
+  <div class="header center">
+    <h1>Profiel</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span>Profiel</span>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal" method="POST" submit.delegate="update()">
+              <p>
+                Voornaam:<input class="form-control" type="text" id="name" value.bind="user.name">
+                <br />
+                Achternaam:<input class="form-control" type="text" value.bind="user.lastName">
+                <br />
+                Adres:<input class="form-control" type="text" value.bind="user.address">
+                <br />
+                Postcode:<input class="form-control" type="text" value.bind="user.zip">
+                <br />
+                Geboortedatum:<input class="form-control" type="text" value.bind="user.birthdate">
+                <br />
+                Handicaps:<input class="form-control" type="text" value.bind="user.handicapts">
+                <br />
+                Telefoon nummer:<input class="form-control" type="text" value.bind="user.nummer">
+                <br />
+                Rijbewijs beschickbaar: ${user.rijbewijs}
+                <br />
+                Over mij:<textarea value.bind="user.about" id="user" type="text" class="form-control" name="about" required autofocus></textarea>
+              </p>
+              <button id="submit" type="submit" class="btn btn-primary">
+                Bewerk
+              </button>
+              <button class="btn btn-warning" click.delegate="toggleAccount(0)">Disable</button>
+              <button class="btn btn-success" click.delegate="toggleAccount(1)">Enable</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

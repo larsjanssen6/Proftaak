@@ -219,5 +219,102 @@ namespace Proftaak.Repositories.UserRepo
       connection.disConnect();
       return data;
     }
+
+    public UserModel updateUser(UserModel user)
+    {
+      try
+      {
+        SqlCommand sqlCommand = new SqlCommand("update account set name = @name, last_name = @last_name, address = @address, " +
+        "zip = @zip, birthdate = @birthdate, about = @about where id = @id", connection.getConnection());
+        connection.Connect();
+
+        sqlCommand.Parameters.AddWithValue("@id", user.id);
+        sqlCommand.Parameters.AddWithValue("@name", user.name);
+        sqlCommand.Parameters.AddWithValue("@last_name", user.lastName);
+        sqlCommand.Parameters.AddWithValue("@address", user.address);
+        sqlCommand.Parameters.AddWithValue("@zip", user.zip);
+        sqlCommand.Parameters.AddWithValue("@birthdate", user.birthdate.ToString("yyyy/MM/dd"));
+        sqlCommand.Parameters.AddWithValue("@about", user.about);
+        sqlCommand.Connection = connection.getConnection();
+
+        sqlCommand.ExecuteNonQuery();
+      }
+
+      catch (Exception)
+      {
+        throw;
+      }
+
+      finally
+      {
+        connection.disConnect();
+      }
+      return user;
+    }
+
+    public UserModel findID(int id)
+    {
+      UserModel user = new UserModel();
+
+      try
+      {
+        connection.Connect();
+        SqlCommand sqlCommand = new SqlCommand("select * from account where id=@id", connection.getConnection());
+        sqlCommand.Parameters.AddWithValue("@id", id);
+        SqlDataReader reader = sqlCommand.ExecuteReader();
+
+        if (reader.HasRows)
+        {
+          while (reader.Read())
+          {
+
+            user.id = Convert.ToInt32(reader["id"]);
+            user.email = reader["email"].ToString();
+            user.role = Convert.ToInt32(reader["role_id"]);
+            user.name = reader["name"].ToString();
+            user.password = reader["password"].ToString();
+            user.lastName = reader["last_name"].ToString();
+            user.address = reader["address"].ToString();
+            user.zip = reader["zip"].ToString();
+            user.birthdate = Convert.ToDateTime(reader["birthdate"]);
+            user.about = reader["about"].ToString();
+            user.rijbewijs = reader["rijbewijs"].ToString();
+            user.status = Convert.ToInt32(reader["status"]);
+          }
+        }
+      }
+
+      catch (Exception ex)
+      {
+        throw;
+      }
+
+      return user;
+    }
+
+    public UserModel toggleAccount(UserModel user)
+    {
+      try
+      {
+        connection.Connect();
+        SqlCommand sqlCommand = new SqlCommand("update account set status = @status where id = @id", connection.getConnection());
+
+        sqlCommand.Parameters.AddWithValue("@id", user.id);
+        sqlCommand.Parameters.AddWithValue("@status", user.status);
+
+        sqlCommand.ExecuteNonQuery();
+      }
+      catch (Exception)
+      {
+
+        throw;
+      }
+
+      finally
+      {
+        connection.disConnect();
+      }
+      return user;
+    }
   }
 }

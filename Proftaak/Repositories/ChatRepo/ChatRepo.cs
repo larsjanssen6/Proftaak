@@ -1,6 +1,7 @@
 ﻿using Proftaak.Repositories.UserRepo;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -121,18 +122,18 @@ namespace Proftaak.Repositories.ChatRepo
           {
             while (reader.Read())
             {
-          user.id = Convert.ToInt32(reader["id"]);
-          user.email = reader["email"].ToString();
-          user.role = Convert.ToInt32(reader["role_id"]);
-          user.name = reader["name"].ToString();
-          user.password = reader["password"].ToString();
-          user.lastName = reader["last_name"].ToString();
-          user.address = reader["address"].ToString();
-          user.zip = reader["zip"].ToString();
-          user.birthdate = Convert.ToDateTime(reader["birthdate"]);
-          user.about = reader["about"].ToString();
-          user.rijbewijs = reader["rijbewijs"].ToString();
-          user.status = Convert.ToInt32(reader["status"]);
+                user.id = Convert.ToInt32(reader["id"]);
+                user.email = reader["email"].ToString();
+                user.role = Convert.ToInt32(reader["role_id"]);
+                user.name = reader["name"].ToString();
+                user.password = reader["password"].ToString();
+                user.lastName = reader["last_name"].ToString();
+                user.address = reader["address"].ToString();
+                user.zip = reader["zip"].ToString();
+                user.birthdate = Convert.ToDateTime(reader["birthdate"]);
+                user.about = reader["about"].ToString();
+                user.rijbewijs = reader["rijbewijs"].ToString();
+                user.status = Convert.ToInt32(reader["status"]);
             }
           }
           connection.disConnect();
@@ -161,16 +162,17 @@ namespace Proftaak.Repositories.ChatRepo
 
         public void sendMessage(int chatid, int userid, string message)
         {
-          connection.Connect();
-          SqlCommand sqlCommand = new SqlCommand("INSERT INTO CHAT_REACTION (account_id, chat_id, message, time) VALUES (@account_id, @chat_id, @message, @time);", connection.getConnection());
-          sqlCommand.Parameters.AddWithValue("@account_id", userid);
-          sqlCommand.Parameters.AddWithValue("@chat_id", chatid);
-          sqlCommand.Parameters.AddWithValue("@message", message);
-          sqlCommand.Parameters.AddWithValue("@time", DateTime.Now);
-          sqlCommand.ExecuteNonQuery();
-          connection.disConnect();
+            connection.Connect();
+            SqlCommand sqlCommand = new SqlCommand("sendMessage", connection.getConnection());
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@account_id", userid);
+            sqlCommand.Parameters.AddWithValue("@chat_id", chatid);
+            sqlCommand.Parameters.AddWithValue("@message", message);
+            sqlCommand.ExecuteNonQuery();
+            connection.disConnect();
 
         }
+
         public void addChat(int IDOne, int IDTwo)
         {
 
